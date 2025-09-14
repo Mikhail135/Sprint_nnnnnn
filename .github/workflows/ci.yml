@@ -1,0 +1,40 @@
+name: Python Selenium Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.16
+        options: --privileged
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install Docker Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
+
+      - name: Build and run containers
+        run: docker-compose up -d --build
+
+      - name: Run tests
+        run: docker-compose run --rm tests
+
+      - name: Generate Allure report
+        run: |
+          docker-compose run --rm tests allure generate allure-results --clean -o allure-report
