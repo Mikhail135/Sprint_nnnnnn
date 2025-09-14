@@ -1,9 +1,9 @@
 class Data:
-    first_name = 'Мицл'
-    last_name = 'Кчк'
-    user_name = 'mil'
-    email = 'miil.kulwik@sprint.ru'
-    password = '123etgbt5v545v'
+    first_name = 'Мигцл'
+    last_name = 'Кчкяяя'
+    user_name = 'mknkjnil'
+    email = 'miil.kulwizzxck@sprint.ru'
+    password = '123etkkgbt5v545v'
     recipe_name = 'Что-то вкусное'
     eel = 'угорь'
     weight = 2
