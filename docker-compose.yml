@@ -1,32 +1,25 @@
-version: '3.9'
+version: "3.9"
 
 services:
   selenoid:
     image: aerokube/selenoid:latest-release
-    network_mode: bridge
+    container_name: selenoid
     ports:
       - "4444:4444"
     volumes:
-      - ./browsers.json:/etc/selenoid/browsers.json
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - OVERRIDE_VIDEO_OUTPUT_DIR=/opt/selenoid/video
-
-  selenoid-ui:
-    image: aerokube/selenoid-ui:latest-release
-    network_mode: bridge
-    links:
-      - selenoid
-    ports:
-      - "8080:8080"
-    command: ["--selenoid-uri", "http://selenoid:4444"]
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./selenoid/config/:/etc/selenoid/:ro"
+    restart: always
 
   tests:
-    build: .
-    network_mode: bridge
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - selenoid
+    environment:
+      - SELENOID_URL=http://selenoid:4444/wd/hub
+    command: pytest
     volumes:
       - ./:/app
     working_dir: /app
-    command: pytest --alluredir=/app/allure-results

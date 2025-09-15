@@ -1,8 +1,4 @@
-FROM python:3.11-slim
-
-RUN apt-get update && apt-get install -y \
-    wget unzip curl git \
-    && rm -rf /var/lib/apt/lists/*
+FROM python:3.11
 
 WORKDIR /app
 
@@ -11,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["pytest", "--alluredir=/app/allure-results"]
+CMD ["pytest", "-v", "--maxfail=1", "--disable-warnings"]
