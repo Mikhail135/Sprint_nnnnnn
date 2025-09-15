@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from url import Url
 
+
 @pytest.fixture
 def driver():
     options = Options()
@@ -12,7 +13,7 @@ def driver():
     options.add_argument("--disable-dev-shm-usage")
 
     driver = webdriver.Remote(
-        command_executor= 'http://' + Url.site + ':4444/wd/hub',
+        command_executor='http://selenium-hub:4444/wd/hub',
         options=options
     )
     return driver
