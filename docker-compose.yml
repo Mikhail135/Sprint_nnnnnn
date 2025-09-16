@@ -8,7 +8,7 @@ services:
     networks:
       - selenoid
     volumes:
-      - "C:/Users/smele/PycharmProjects/Sprint_nnnnnn/selenoid/config.json:/etc/selenoid/config.json:ro"
+      - "./selenoid/config.json:/etc/selenoid/config.json:ro"
       - "/var/run/docker.sock:/var/run/docker.sock"
     command: ["-conf", "/etc/selenoid/config.json", "-container-network", "selenoid"]
 
