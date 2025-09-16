@@ -10,7 +10,7 @@ services:
     networks:
       - selenoid
     volumes:
-      - "/c/Users/Username/Projects/Sprint/selenoid/browsers.json:/selenoid/browsers.json:ro"
+      - "/c/Users/smele/PycharmProjects/Sprint_nnnnnn/selenoid/browsers.json:/selenoid/browsers.json:ro"
       - "/var/run/docker.sock:/var/run/docker.sock"
     command: [ "-conf", "/selenoid/browsers.json", "-container-network", "selenoid" ]
     restart: unless-stopped
