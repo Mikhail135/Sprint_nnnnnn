@@ -1,44 +1,37 @@
-version: '3.5'
-
 services:
+
   selenoid:
     image: "aerokube/selenoid"
-    platform: linux/amd64
     container_name: selenoid
     ports:
       - "4444:4444"
     networks:
       - selenoid
     volumes:
-      - "/c/Users/smele/PycharmProjects/Sprint_nnnnnn/selenoid/browsers.json:/selenoid/browsers.json:ro"
+      - "C:/Users/smele/PycharmProjects/Sprint_nnnnnn/selenoid/config.json:/etc/selenoid/config.json:ro"
       - "/var/run/docker.sock:/var/run/docker.sock"
-    command: [ "-conf", "/selenoid/browsers.json", "-container-network", "selenoid" ]
-    restart: unless-stopped
-    environment:
-      - AUTO_DOWNLOAD=true
+    command: ["-conf", "/etc/selenoid/config.json", "-container-network", "selenoid"]
 
   selenoid-ui:
     image: "aerokube/selenoid-ui:latest"
-    platform: linux/amd64
     container_name: selenoid-ui
+    links:
+      - selenoid
     ports:
       - "8081:8080"
     networks:
       - selenoid
-    command: [ "--selenoid-uri", "http://selenoid:4444" ]
+    command: ["--selenoid-uri", "http://selenoid:4444"]
 
-  test:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: test
-    volumes:
-      - ".:/app"
+  test_docker:
+    build: .
+    container_name: test_docker
     depends_on:
       - selenoid
     networks:
       - selenoid
-    command: [ "pytest", "--alluredir=allure-results" ]
+    tty: true
+    command: ["pytest"]
 
 networks:
   selenoid:
