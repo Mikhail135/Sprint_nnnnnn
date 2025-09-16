@@ -6,6 +6,7 @@ from pages.create_recipe_page import CreateRecipePage
 class TestCreateRecipe:
     def test_card_create_recipe(self, driver):
         auth_pg = AuthPage(driver)
+        auth_pg.open_page()
         auth_pg.clc_button_enter()
         auth_pg.send_keys_email()
         auth_pg.send_keys_password()
@@ -25,6 +26,7 @@ class TestCreateRecipe:
 
     def test_name_create_recipe(self, driver):
         auth_pg = AuthPage(driver)
+        auth_pg.open_page()
         auth_pg.clc_button_enter()
         auth_pg.send_keys_email()
         auth_pg.send_keys_password()

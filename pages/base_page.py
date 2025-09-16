@@ -2,11 +2,15 @@ from locator import Locator
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from url import Url
 
 class BasePage:
     def __init__(self, driver):
         self.drivers = driver
         self.wait = WebDriverWait(driver, 10)
+
+    def open_page(self):
+        self.drivers.get(Url.site)
 
     def find_elements(self, locator):
         return self.drivers.find_element(*locator)

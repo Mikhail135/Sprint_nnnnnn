@@ -1,10 +1,12 @@
 from pages.main_page import MainPage
 from pages.signup_page import SignupPage
 import time
+from url import Url
 
 class TestAuthForm:
     def test_transition_to_authorization(self, driver):
         page = MainPage(driver)
+        page.open_page()
         page.click_creat_acc()
         signup_page =SignupPage(driver)
         signup_page.input_reg_form()

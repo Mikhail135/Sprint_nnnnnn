@@ -3,6 +3,8 @@ from .base_page import BasePage
 from locator import Locator
 import allure
 from data import Data
+from pathlib import Path
+
 
 class CreateRecipePage(BasePage):
     @allure.step("нажатие кнопки Создать рецепт")
@@ -47,11 +49,14 @@ class CreateRecipePage(BasePage):
         element = self.find_elements(Locator.DESCRIPTION)
         element.send_keys(Data.recipe_name)
 
-    @allure.step("Добавлеине фото")
+    @allure.step("Добавление фото")
     def add_photo(self):
         APP_DIR = Path(__file__).parent.parent
-        image_path = APP_DIR / "resources" / "яблоки.jpg"
+        image_path = (APP_DIR / "resources" / "yabloki.jpg").resolve()
+        if not image_path.exists():
+            raise FileNotFoundError(f"Файл не найден: {image_path}")
         file_input = self.find_elements(Locator.ADD_PHOTO)
+        self.drivers.execute_script("arguments[0].style.display = 'block';", file_input)
         file_input.send_keys(str(image_path))
 
     @allure.step("нажать Создать рецепт")

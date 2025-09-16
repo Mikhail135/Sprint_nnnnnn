@@ -3,6 +3,7 @@ from pages.auth_page import AuthPage
 class TestAuthForm:
     def test_log_out__button(self, driver):
         auth_pg = AuthPage(driver)
+        auth_pg.open_page()
         auth_pg.clc_button_enter()
         auth_pg.send_keys_email()
         auth_pg.send_keys_password()
@@ -14,6 +15,7 @@ class TestAuthForm:
 
     def test_main_page(self, driver):
         auth_pg = AuthPage(driver)
+        auth_pg.open_page()
         auth_pg.clc_button_enter()
         auth_pg.send_keys_email()
         auth_pg.send_keys_password()
