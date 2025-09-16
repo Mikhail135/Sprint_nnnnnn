@@ -9,7 +9,7 @@ def driver():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    selenoid_url = os.getenv("SELENOID_URL", "http://localhost:4444/wd/hub")
+    selenoid_url = os.getenv("SELENOID_URL", "http://selenoid:4444/wd/hub")
     driver = webdriver.Remote(
         command_executor=selenoid_url,
         options=options
